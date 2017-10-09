@@ -1,5 +1,5 @@
 
-var array_left = [539,600,653,710];
+var array_left = [535,596,649,706];
 var array_top = [3,58,112,170];
 
 function addRow() {
@@ -8,7 +8,7 @@ function addRow() {
     var count = table.rows[0].cells.length;
 
     var last_value = array_top.pop();
-    var new_value = last_value+57;
+    var new_value = last_value+55;
 
         array_top.push(last_value);
         array_top.push(new_value);
@@ -24,9 +24,9 @@ function addColumn() {
     var add_column = document.getElementById("add-column");
     var count = table.rows.length;
     var tr = document.getElementsByTagName("tr");
-    var offsetLeft = add_column.offsetLeft+55;
+    var offsetLeft = add_column.offsetLeft+54;
     var last_value = array_left.pop();
-    var new_value = last_value+56;
+    var new_value = last_value+51;
 
         array_left.push(last_value);
         array_left.push(new_value);
@@ -78,6 +78,7 @@ function deleteColumn_() {
         array_left.pop();
         delete_column.style.display = "none";
 }
+
 (function(){
     var div = document.getElementById("wrap");
     var table = document.getElementById("table");

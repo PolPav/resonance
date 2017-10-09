@@ -7,7 +7,7 @@ table {
 .td {
     width: 50px;
     height: 50px;
-    border: 1px solid white;
+    border-width: thick;
     background-color: #4dabe4;
 }
 
@@ -18,15 +18,15 @@ button {
 
 #add-column{
   position: absolute;
-    top: 0;
-    left: 57.2%;
+    top: 1%;
+    left: 756px;
 
 }
 
 #add-row{
     position: absolute;
     top: 100.3%;
-    left: 40%;
+    left: 40.1%;
 }
 
 #wrap{
@@ -43,7 +43,7 @@ button {
 #delete_row{
     position: absolute;
     top: 3px;
-    left: 36.2%;
+    left: 482px;
     display: none;
 }
 
