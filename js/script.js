@@ -105,7 +105,7 @@ function deleteColumn_() {
               }
           }
 
-        for(var j=0; j<rows_length; j++) {
+        for(var j=0; j < rows_length; j++) {
               if (elem.parentNode.rowIndex == j) {
                   delete_row.style.top = array_top[j] + "px";
               }
