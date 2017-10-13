@@ -1,10 +1,15 @@
-table {
-    margin-left: 40%;
-    margin-top: 80px;
+.wrapper{
+    position: relative;
+    display: inline-block;
+    left: 5%;
+    top: 50px;
+}
+
+.wrapper__table {
     border: 2px solid #48AAE6;
 }
 
-.td {
+.wrapper__td {
     width: 50px;
     height: 50px;
     border-width: thick;
@@ -16,34 +21,34 @@ button {
     height: 50px;
 }
 
-#add-column{
-  position: absolute;
-    top: 1%;
-    left: 756px;
-
-}
-
-#add-row{
+.wrapper__add_column{
     position: absolute;
-    top: 100.3%;
-    left: 40.1%;
+    top: 0;
+    left: 100%;
+    margin-top: 4px;
+    margin-left: 2px;
 }
 
-#wrap{
-    position: relative;
+.wrapper__add_row{
+    position: absolute;
+    top: 100%;
+    margin-top: 2px;
+    margin-left: 4px;
 }
 
-#delete_column{
-   position: absolute;
-    left: 539px;
-    bottom: 100.3%;
+.wrapper__delete_column{
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: 2px;
+    margin-left: 4px;
     display: none;
 }
 
-#delete_row{
+.wrapper__delete_row{
     position: absolute;
-    top: 3px;
-    left: 482px;
+    right: 100%;
+    margin-right: 2px;
+    margin-top: 4px;
     display: none;
 }
 
@@ -62,7 +67,7 @@ button {
 
 .delete{
     border: none;
-    font-size: 40px;
+    font-size: 20px;
     color: white;
     background: #B20000;
     cursor: pointer;

@@ -3,44 +3,44 @@
 
 <head>
     <title>cube</title>
-    <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
     <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div id="wrap">
-        <button id="add-row" class="add transition" onclick="addRow()">+</button>
-        <button id="delete_row" class="delete transition delete-row" onclick="deleteRow_()">-</button>
-        <table id="table">
-            <tr>
-                <td class="td"></td>
-                <td class="td"></td>
-                <td class="td"></td>
-                <td class="td"></td>
+    <div class="wrapper">
+        <button class="wrapper__add_row add transition" onclick="cube.addRow_()">+</button>
+        <button class="wrapper__add_column add transition" onclick="cube.addColumn_()">+</button>
+        <button class="wrapper__delete_row delete transition" onclick="cube.deleteRow_()">-</button>
+        <button class="wrapper__delete_column delete transition" onclick="cube.deleteColumn_()">-</button>
+        <table class="wrapper__table">
+            <tr class="wrapper__tr">
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
             </tr>
-            <tr>
-                <td class="td"></td>
-                <td class="td"></td>
-                <td class="td"></td>
-                <td class="td"></td>
+            <tr class="wrapper__tr">
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
             </tr>
-            <tr>
-                <td class="td"></td>
-                <td class="td"></td>
-                <td class="td"></td>
-                <td class="td"></td>
+            <tr class="wrapper__tr">
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
             </tr>
-            <tr>
-                <td class="td"></td>
-                <td class="td"></td>
-                <td class="td"></td>
-                <td class="td"></td>
+            <tr class="wrapper__tr">
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
             </tr>
         </table>
-        <button id="add-column" class="add transition" onclick="addColumn()">+</button>
-        <button id="delete_column" class="delete transition delete-column" onclick="deleteColumn_()">-</button>
+
     </div>
-    <script src="js/script.js"></script>
+    <script src="js/es6_script.js"></script>
 </body>
 
 </html>

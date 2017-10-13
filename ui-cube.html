@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+<template id="tpl">
+    <style>
+        .wrapper{
+            position: relative;
+            display: inline-block;
+            left: 5%;
+            top: 50px;
+        }
+
+        .wrapper__table {
+            border: 2px solid #48AAE6;
+        }
+
+        .wrapper__td {
+            width: 50px;
+            height: 50px;
+            border-width: thick;
+            background-color: #48AAE6;
+        }
+
+        button {
+            width: 50px;
+            height: 50px;
+        }
+
+        .wrapper__add_column{
+            position: absolute;
+            top: 0;
+            left: 100%;
+            margin-top: 4px;
+            margin-left: 2px;
+        }
+
+        .wrapper__add_row{
+            position: absolute;
+            top: 100%;
+            margin-top: 2px;
+            margin-left: 4px;
+        }
+
+        .wrapper__delete_column{
+            position: absolute;
+            bottom: 100%;
+            margin-bottom: 2px;
+            margin-left: 4px;
+            display: none;
+        }
+
+        .wrapper__delete_row{
+            position: absolute;
+            right: 100%;
+            margin-right: 2px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .add{
+            border: none;
+            font-size: 20px;
+            color: white;
+            background: #F3A500;
+            cursor: pointer;
+        }
+
+        .add:hover {
+            background: #F6C052;
+            color: white;
+        }
+
+        .delete{
+            border: none;
+            font-size: 20px;
+            color: white;
+            background: #B20000;
+            cursor: pointer;
+        }
+
+        .delete:hover {
+            background: #CA4C49;
+            color: white;
+        }
+
+        .transition {
+            transition: 1s;
+        }
+    </style>
+    <div class="wrapper">
+        <button class="wrapper__add_row add transition">+</button>
+        <button class="wrapper__add_column add transition">+</button>
+        <button class="wrapper__delete_row delete transition">-</button>
+        <button class="wrapper__delete_column delete transition">-</button>
+        <table class="wrapper__table">
+            <tr class="wrapper__tr">
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+            </tr>
+            <tr class="wrapper__tr">
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+            </tr>
+            <tr class="wrapper__tr">
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+            </tr>
+            <tr class="wrapper__tr">
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+                <td class="wrapper__td"></td>
+            </tr>
+        </table>
+    </div>
+</template>
+
+<script>
+    ! function() {
+        let localDocument = document.currentScript.ownerDocument;
+        let tpl = localDocument.getElementById('tpl');
+        let CubeProto = Object.create(HTMLElement.prototype);
+
+        CubeProto.createdCallback = function() {
+            let root = this.createShadowRoot();
+                root.appendChild(tpl.content.cloneNode(true));
+
+            let table = root.querySelector("table.wrapper__table");
+            let div = root.querySelector("div.wrapper");
+            let delete_column = root.querySelector("button.wrapper__delete_column");
+            let delete_row = root.querySelector("button.wrapper__delete_row");
+            let add_row = root.querySelector("button.wrapper__add_row");
+            let add_column = root.querySelector("button.wrapper__add_column");
+
+            let over = function () {
+                    let elem = event.target;
+
+                    delete_column.style.display = "inline";
+                    delete_row.style.display = "inline";
+
+                    let offsetL = elem.offsetLeft;
+                    let offsetT = elem.offsetTop;
+
+                    delete_column.style.left = offsetL+"px";
+                    delete_row.style.top = offsetT+"px";
+                    if(table.rows[0].cells.length == 1){
+                        delete_column.style.display = "none";
+                    }
+
+                    if(table.rows.length == 1){
+                        delete_row.style.display = "none";
+                    }
+            };
+
+            let out = function (e) {
+                    let div_left = div.offsetLeft;
+                    let div_top = div.offsetTop;
+
+                    let elem = event.target;
+                    let x = e.pageX;
+                    let y = e.pageY;
+
+                    let offsetL = delete_column.offsetLeft;
+                    let offsetT = delete_row.offsetTop;
+                    let width_table = elem.offsetWidth;
+                    let height_table = elem.offsetHeight;
+
+                    delete_column.style.left = offsetL+"px";
+                    delete_row.style.top = offsetT+"px";
+
+                    if(x > width_table+div_left-2 || y > height_table+div_top-2 ){
+                        delete_column.style.display = "none";
+                        delete_row.style.display = "none";
+                    }
+            };
+
+            let overButton = function () {
+                    let elem = event.target;
+
+                    if(elem == delete_column){
+                        delete_column.style.display = "inline";
+                        delete_row.style.display = "none";
+                    }
+
+                    if(elem == delete_row){
+                        delete_row.style.display = "inline";
+                        delete_column.style.display = "none";
+                    }
+            };
+
+            let outButton = function () {
+                delete_column.style.display = "none";
+                delete_row.style.display = "none";
+            };
+
+            let addRow = function () {
+                    table.addEventListener("mouseover", this.over, false);
+                    let row = document.createElement("tr");
+                    let row_length = table.rows[0].cells.length;
+
+                    for (let i=0; i<row_length; i++){
+                        let td = document.createElement("td");
+                        table.appendChild(row).appendChild(td).className ="wrapper__td";
+                        table.lastChild.className = "wrapper__tr";
+                    }
+            };
+
+            let addColumn = function () {
+                    table.addEventListener("mouseover", this.over, false);
+                    let rows_length = table.rows.length;
+                    let tr = root.querySelectorAll("tr.wrapper__tr");
+
+                    for (let i=0; i<rows_length ; i++){
+                        let td = document.createElement("td");
+                        tr[i].appendChild(td).className ="wrapper__td";
+                    }
+            };
+
+            let delRow = function () {
+                    let tr = root.querySelectorAll("tr.wrapper__tr");
+
+                    if(table.rows.length > 1){
+                        table.deleteRow(tr);
+                    }
+
+                    delete_row.style.display = "none";
+            };
+
+            let delColumn = function () {
+                    let rows_length = table.rows.length;
+                    let tr = root.querySelectorAll("tr.wrapper__tr");
+
+                    for (let i=0; i<rows_length; i++){
+                        if(tr[i].cells.length > 1){
+                            tr[i].deleteCell(-1);
+                        }
+                    }
+
+                    delete_column.style.display = "none";
+            };
+
+            table.addEventListener("mouseover", over, false);
+            table.addEventListener("mouseleave", out, false);
+            div.addEventListener("mouseover", overButton, false);
+            delete_row.addEventListener("mouseleave", outButton, false);
+            delete_column.addEventListener("mouseleave", outButton, false);
+            add_row.addEventListener("click", addRow, false);
+            add_column.addEventListener("click", addColumn, false);
+            delete_row.addEventListener("click", delRow, false);
+            delete_column.addEventListener("click", delColumn, false);
+
+        };
+
+        document.registerElement('ui-cube', {
+            prototype: CubeProto
+        });
+    }();
+</script>
+
+</body>
+
+</html>
