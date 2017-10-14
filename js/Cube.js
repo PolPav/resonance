@@ -1,7 +1,6 @@
 class Cube{
 
     constructor(wrap, table){
-
             this.div = document.querySelector(wrap);
             this.table = document.querySelector(table);
             this.delete_column = document.querySelector("button.wrapper__delete_column");
@@ -16,8 +15,7 @@ class Cube{
 
         }
 
-    addRow_() {
-            
+    addRow_() {           
             let row = document.createElement("tr");
             let row_length = this.table.rows[0].cells.length;
 
@@ -28,8 +26,7 @@ class Cube{
             }
         }
 
-    addColumn_() {
-            // this.table.addEventListener("mouseover", this.over, false);
+    addColumn_() {         
             let rows_length = this.table.rows.length;
             let tr = document.querySelectorAll("tr.wrapper__tr");
 
@@ -40,7 +37,6 @@ class Cube{
         }
 
     deleteRow_() {
-
             let delete_row = document.querySelector("button.wrapper__delete_row");
             let tr = document.querySelectorAll("tr.wrapper__tr");
 
@@ -52,7 +48,6 @@ class Cube{
     }
 
     deleteColumn_() {
-
             let delete_column = document.querySelector("button.wrapper__delete_column");
             let rows_length = this.table.rows.length;
             let tr = document.querySelectorAll("tr.wrapper__tr");
@@ -66,7 +61,7 @@ class Cube{
                 delete_column.style.display = "none";
     }
 
-   over() {
+   over() {      
        let tab = document.querySelector("table.wrapper__table");
 
        let delete_column = document.querySelector("button.wrapper__delete_column");
@@ -92,7 +87,7 @@ class Cube{
        }
    }
 
-   out(e) {
+   out(e) {       
        let div = document.body.querySelector("div.wrapper");
        let div_left = div.offsetLeft;
        let div_top = div.offsetTop;
@@ -118,7 +113,6 @@ class Cube{
    }
 
    overButton() {
-
        let delete_column = document.querySelector("button.wrapper__delete_column");
        let delete_row = document.querySelector("button.wrapper__delete_row");
        let elem = event.target;
