@@ -1,6 +1,6 @@
 class Cube{
 
-    constructor(wrap, table){
+    constructor(wrap, table) {
             this.div = document.querySelector(wrap);
             this.table = document.querySelector(table);
             this.delete_column = document.querySelector("button.wrapper__delete_column");
@@ -128,7 +128,7 @@ class Cube{
             }
         }
 
-    outButton(){
+    outButton() {
         let delete_column = document.querySelector("button.wrapper__delete_column");
         let delete_row = document.querySelector("button.wrapper__delete_row");
             delete_column.style.display = "none";
