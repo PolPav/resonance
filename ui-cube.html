@@ -10,18 +10,18 @@
             top: 50px;
         }
 
-        .wrapper__table {
+        .wrapper__table{
             border: 2px solid #48AAE6;
         }
 
-        .wrapper__td {
+        .wrapper__td{
             width: 50px;
             height: 50px;
             border-width: thick;
             background-color: #48AAE6;
         }
 
-        button {
+        button{
             width: 50px;
             height: 50px;
         }
@@ -65,7 +65,7 @@
             cursor: pointer;
         }
 
-        .add:hover {
+        .add:hover{
             background: #F6C052;
             color: white;
         }
@@ -78,12 +78,12 @@
             cursor: pointer;
         }
 
-        .delete:hover {
+        .delete:hover{
             background: #CA4C49;
             color: white;
         }
 
-        .transition {
+        .transition{
             transition: 1s;
         }
     </style>
@@ -149,6 +149,7 @@
 
                     delete_column.style.left = offsetL+"px";
                     delete_row.style.top = offsetT+"px";
+
                     if(table.rows[0].cells.length == 1){
                         delete_column.style.display = "none";
                     }
@@ -171,8 +172,8 @@
                     let width_table = elem.offsetWidth;
                     let height_table = elem.offsetHeight;
 
-                    delete_column.style.left = offsetL+"px";
-                    delete_row.style.top = offsetT+"px";
+                        delete_column.style.left = offsetL+"px";
+                        delete_row.style.top = offsetT+"px";
 
                     if(x > width_table+div_left-2 || y > height_table+div_top-2 ){
                         delete_column.style.display = "none";
@@ -200,25 +201,23 @@
             };
 
             let addRow = function () {
-                    table.addEventListener("mouseover", this.over, false);
                     let row = document.createElement("tr");
                     let row_length = table.rows[0].cells.length;
 
                     for (let i=0; i<row_length; i++){
                         let td = document.createElement("td");
-                        table.appendChild(row).appendChild(td).className ="wrapper__td";
-                        table.lastChild.className = "wrapper__tr";
+                            table.appendChild(row).appendChild(td).className ="wrapper__td";
+                            table.lastChild.className = "wrapper__tr";
                     }
             };
 
             let addColumn = function () {
-                    table.addEventListener("mouseover", this.over, false);
                     let rows_length = table.rows.length;
                     let tr = root.querySelectorAll("tr.wrapper__tr");
 
                     for (let i=0; i<rows_length ; i++){
                         let td = document.createElement("td");
-                        tr[i].appendChild(td).className ="wrapper__td";
+                            tr[i].appendChild(td).className ="wrapper__td";
                     }
             };
 
