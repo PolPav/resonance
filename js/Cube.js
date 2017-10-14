@@ -131,8 +131,8 @@ class Cube{
     outButton(){
         let delete_column = document.querySelector("button.wrapper__delete_column");
         let delete_row = document.querySelector("button.wrapper__delete_row");
-        delete_column.style.display = "none";
-        delete_row.style.display = "none";
+            delete_column.style.display = "none";
+            delete_row.style.display = "none";
     }
 }
 
