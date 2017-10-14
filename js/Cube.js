@@ -82,6 +82,7 @@ class Cube{
 
                 delete_column.style.left = offsetL+"px";
                 delete_row.style.top = offsetT+"px";
+       
        if(tab.rows[0].cells.length == 1){
            delete_column.style.display = "none";
        }
