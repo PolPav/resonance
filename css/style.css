@@ -5,18 +5,18 @@
     top: 50px;
 }
 
-.wrapper__table {
+.wrapper__table{
     border: 2px solid #48AAE6;
 }
 
-.wrapper__td {
+.wrapper__td{
     width: 50px;
     height: 50px;
     border-width: thick;
     background-color: #48AAE6;
 }
 
-button {
+button{
     width: 50px;
     height: 50px;
 }
@@ -60,7 +60,7 @@ button {
     cursor: pointer;
 }
 
-.add:hover {
+.add:hover{
     background: #F6C052;
     color: white;
 }
@@ -73,12 +73,12 @@ button {
     cursor: pointer;
 }
 
-.delete:hover {
+.delete:hover{
     background: #CA4C49;
     color: white;
 }
 
-.transition {
+.transition{
     transition: 1s;
 }
 
