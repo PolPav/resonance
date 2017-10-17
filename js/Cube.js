@@ -16,7 +16,6 @@ class Cube{
             for (let i = 0; i < rowLength; i++) {
                 this.offsetCellsValue[i] = tr[i].cells[i].offsetLeft;
             }
-
         }
 
     addLastRow() {
@@ -25,10 +24,10 @@ class Cube{
             const rowLength = this.table.rows[0].cells.length;
             const tbody = document.querySelector('table.wrapper__table tbody');
 
-                for (let i=0; i<rowLength; i++){
-                    const td = document.createElement("td");td.className = "wrapper__td";
-                    tbody.appendChild(row).appendChild(td);
-                }
+            for (let i=0; i<rowLength; i++){
+                const td = document.createElement("td");td.className = "wrapper__td";
+                tbody.appendChild(row).appendChild(td);
+            }
         }
 
     addLastColumn() {
@@ -56,25 +55,24 @@ class Cube{
             const firstRowOffset = 6;
             const offsetHeight = td.offsetWidth+firstRowOffset;
 
-                for (let i = 0; i < this.table.rows.length; i++) {
-                    if (this.table.rows.length) {
-                        let offsetRow = this.table.rows[i].offsetTop;
-                        
-                        for (let j = 0; j < 10; j++) {
-                            if (offsetTopButton - j == offsetRow) {
-                                this.table.deleteRow(i);
-                            }
+            for (let i = 0; i < this.table.rows.length; i++) {
+                if (this.table.rows.length) {
+                    let offsetRow = this.table.rows[i].offsetTop;
+
+                    for (let j = 0; j < 10; j++) {
+                        if (offsetTopButton - j == offsetRow) {
+                            this.table.deleteRow(i);
                         }
                     }
                 }
+            }
 
-                if(this.table.rows.length > 1 && offsetTopButton != firstRowOffset){
-                    deleteRow.style.top = `${offsetTopButton-offsetHeight}px`;
+            if(this.table.rows.length > 1 && offsetTopButton != firstRowOffset){
+                deleteRow.style.top = `${offsetTopButton-offsetHeight}px`;
 
-                } else {
-                    deleteRow.style.display = "none";
-                }
-
+            } else {
+                deleteRow.style.display = "none";
+            }
     }
 
     deleteCurrentColumn() {
@@ -167,16 +165,16 @@ class Cube{
        const deleteRow = document.querySelector("button.wrapper__delete_row");
        const elem = e.target;
 
-            if(elem == deleteColumn){
-                deleteColumn.style.display = "inline";
-                deleteRow.style.display = "none";
-            }
-
-            if(elem == deleteRow){
-                deleteRow.style.display = "inline";
-                deleteColumn.style.display = "none";
-            }
+        if(elem == deleteColumn){
+            deleteColumn.style.display = "inline";
+            deleteRow.style.display = "none";
         }
+
+        if(elem == deleteRow){
+            deleteRow.style.display = "inline";
+            deleteColumn.style.display = "none";
+        }
+    }
 }
 
 let cube = new Cube("div.wrapper","table.wrapper__table");
