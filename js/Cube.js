@@ -2,143 +2,181 @@ class Cube{
 
     constructor(wrap, table){
 
-            this.div = document.querySelector(wrap);
+            this.wrapper = document.querySelector(wrap);
             this.table = document.querySelector(table);
-            this.delete_column = document.querySelector("button.wrapper__delete_column");
-            this.delete_row = document.querySelector("button.wrapper__delete_row");
-
-        
+            this.deleteRow = document.querySelector("button.wrapper__delete_row");
             this.table.addEventListener("mouseover", this.over, false);
             this.table.addEventListener("mouseleave", this.out, false);
-            this.div.addEventListener("mouseover", this.overButton, false);
-            this.delete_column.addEventListener("mouseleave", this.outButton, false);
-            this.delete_row.addEventListener("mouseleave", this.outButton, false);
+            this.wrapper.addEventListener("mouseover", this.overButton, false);
+            this.offsetCellsValue = [];
+
+            const tr = document.querySelectorAll("tr.wrapper__tr");
+            const rowLength = this.table.rows[0].cells.length;
+
+            for (let i = 0; i < rowLength; i++) {
+                this.offsetCellsValue[i] = tr[i].cells[i].offsetLeft;
+            }
 
         }
 
-    addRow_() {
+    addLastRow() {
             
-            let row = document.createElement("tr");
-            let row_length = this.table.rows[0].cells.length;
+            const row = document.createElement("tr");row.className = "wrapper__tr";
+            const rowLength = this.table.rows[0].cells.length;
+            const tbody = document.querySelector('table.wrapper__table tbody');
 
-            for (let i=0; i<row_length; i++){
-                let td = document.createElement("td");
-                this.table.appendChild(row).appendChild(td).className ="wrapper__td";
-                this.table.lastChild.className = "wrapper__tr";
-            }
-        }
-
-    addColumn_() {
-            // this.table.addEventListener("mouseover", this.over, false);
-            let rows_length = this.table.rows.length;
-            let tr = document.querySelectorAll("tr.wrapper__tr");
-
-            for (let i=0; i<rows_length ; i++){
-                let td = document.createElement("td");
-                tr[i].appendChild(td).className ="wrapper__td";
-            }
-        }
-
-    deleteRow_() {
-
-            let delete_row = document.querySelector("button.wrapper__delete_row");
-            let tr = document.querySelectorAll("tr.wrapper__tr");
-
-                if(this.table.rows.length > 1){
-                    this.table.deleteRow(tr);
+                for (let i=0; i<rowLength; i++){
+                    const td = document.createElement("td");td.className = "wrapper__td";
+                    tbody.appendChild(row).appendChild(td);
                 }
+        }
 
-                delete_row.style.display = "none";
-    }
+    addLastColumn() {
 
-    deleteColumn_() {
+            const td = document.querySelector("td.wrapper__td");
+            const widthCell = td.offsetWidth+2;
+            const lastValue = this.offsetCellsValue.pop();
+            this.offsetCellsValue.push(lastValue);
+            this.offsetCellsValue.push(lastValue+widthCell);
+            const rowsLength = this.table.rows.length;
+            const tr = document.querySelectorAll("tr.wrapper__tr");
 
-            let delete_column = document.querySelector("button.wrapper__delete_column");
-            let rows_length = this.table.rows.length;
-            let tr = document.querySelectorAll("tr.wrapper__tr");
+            for (let i = 0; i < rowsLength ; i++){
+                const td = document.createElement("td");td.className ="wrapper__td";
+                tr[i].appendChild(td);
+            }
+        }
 
-                for (let i=0; i<rows_length; i++){
-                    if(tr[i].cells.length > 1){
-                        tr[i].deleteCell(-1);
+    deleteCurrentRow() {
+
+            const deleteRow = document.querySelector("button.wrapper__delete_row");
+            const tr = document.querySelectorAll("tr.wrapper__tr");
+            const offsetTopButton = deleteRow.offsetTop;
+            const td = document.querySelector("td.wrapper__td");
+            const firstRowOffset = 6;
+            const offsetHeight = td.offsetWidth+firstRowOffset;
+
+                for (let i = 0; i < this.table.rows.length; i++) {
+                    if (this.table.rows.length) {
+                        let offsetRow = this.table.rows[i].offsetTop;
+                        
+                        for (let j = 0; j < 10; j++) {
+                            if (offsetTopButton - j == offsetRow) {
+                                this.table.deleteRow(i);
+                            }
+                        }
                     }
                 }
 
-                delete_column.style.display = "none";
+                if(this.table.rows.length > 1 && offsetTopButton != firstRowOffset){
+                    deleteRow.style.top = `${offsetTopButton-offsetHeight}px`;
+
+                } else {
+                    deleteRow.style.display = "none";
+                }
+
     }
 
-   over() {
-       let tab = document.querySelector("table.wrapper__table");
+    deleteCurrentColumn() {
 
-       let delete_column = document.querySelector("button.wrapper__delete_column");
-       let delete_row = document.querySelector("button.wrapper__delete_row");
+            const deleteColumn = document.querySelector("button.wrapper__delete_column");
+            const table = document.querySelector("table.wrapper__table");
+            const rowsLength = table.rows.length;
+            const tr = document.querySelectorAll("tr.wrapper__tr");
+            const td = document.querySelector("td.wrapper__td");
+            const rowLength = this.table.rows[0].cells.length;
+            const firstCellOffset = 6;
+            const offsetLeftButton = deleteColumn.offsetLeft;
+            const offsetWidth = td.offsetWidth+firstCellOffset;
+            let index;
 
-            let elem = event.target;
+            for (let i = 0; i < rowLength; i++){
+                
+                for(let j = 0; j < 10; j++){
+                    if(offsetLeftButton - j == this.offsetCellsValue[i]){
+                        index = i;
+                    }
+                }
+            }
 
-                delete_column.style.display = "inline";
-                delete_row.style.display = "inline";
+            for (let i = 0; i < rowsLength; i++){
+                if(tr[i].cells.length > 1){
+                    tr[i].deleteCell(index);
+                }
+            }
 
-                let offsetL = elem.offsetLeft;
-                let offsetT = elem.offsetTop;
 
-                delete_column.style.left = offsetL+"px";
-                delete_row.style.top = offsetT+"px";
-       if(tab.rows[0].cells.length == 1){
-           delete_column.style.display = "none";
+            if(this.table.rows[0].cells.length > 1 && offsetLeftButton != firstCellOffset){
+                deleteColumn.style.left = `${offsetLeftButton-offsetWidth}px`;
+                
+            } else {
+                deleteColumn.style.display = "none";
+            }
+    }
+
+   over(e) {
+
+       const table = document.querySelector("table.wrapper__table");
+       const deleteColumn = document.querySelector("button.wrapper__delete_column");
+       const deleteRow = document.querySelector("button.wrapper__delete_row");
+       const elem = e.target;
+       const offsetLeft = elem.offsetLeft;
+       const offsetTop = elem.offsetTop;
+
+       deleteColumn.style.display = "inline";
+       deleteRow.style.display = "inline";
+       deleteColumn.style.left = `${offsetLeft}px`;
+       deleteRow.style.top = `${offsetTop}px`;
+
+       if (table.rows[0].cells.length == 1) {
+            deleteColumn.style.display = "none";
        }
 
-       if(tab.rows.length == 1){
-           delete_row.style.display = "none";
+       if (table.rows.length == 1) {
+            deleteRow.style.display = "none";
        }
    }
 
    out(e) {
-       let div = document.body.querySelector("div.wrapper");
-       let div_left = div.offsetLeft;
-       let div_top = div.offsetTop;
 
-       let delete_column = document.querySelector("button.wrapper__delete_column");
-       let delete_row = document.querySelector("button.wrapper__delete_row");
-       let elem = event.target;
-       let x = e.pageX;
-       let y = e.pageY;
+       const div = document.body.querySelector("div.wrapper");
+       const divLeft = div.offsetLeft;
+       const divTop = div.offsetTop;
+       const deleteColumn = document.querySelector("button.wrapper__delete_column");
+       const deleteRow = document.querySelector("button.wrapper__delete_row");
+       const elem = event.target;
+       const x = e.pageX;
+       const y = e.pageY;
+       const offsetLeft = deleteColumn.offsetLeft;
+       const offsetTop = deleteRow.offsetTop;
+       const widthTable = elem.offsetWidth;
+       const heightTable = elem.offsetHeight;
 
-       let offsetL = delete_column.offsetLeft;
-       let offsetT = delete_row.offsetTop;
-       let width_table = elem.offsetWidth;
-       let height_table = elem.offsetHeight;
+       deleteColumn.style.left = `${offsetLeft-4}px`;
+       deleteRow.style.top = `${offsetTop-4}px`;
 
-           delete_column.style.left = offsetL+"px";
-           delete_row.style.top = offsetT+"px";
-
-       if(x > width_table+div_left-2 || y > height_table+div_top-2 ){
-           delete_column.style.display = "none";
-           delete_row.style.display = "none";
+       if(x > widthTable+divLeft - 2 || y > heightTable+divTop - 2 ){
+           deleteColumn.style.display = "none";
+           deleteRow.style.display = "none";
        }
    }
 
-   overButton() {
+   overButton(e) {
 
-       let delete_column = document.querySelector("button.wrapper__delete_column");
-       let delete_row = document.querySelector("button.wrapper__delete_row");
-       let elem = event.target;
+       const deleteColumn = document.querySelector("button.wrapper__delete_column");
+       const deleteRow = document.querySelector("button.wrapper__delete_row");
+       const elem = e.target;
 
-            if(elem == delete_column){
-                delete_column.style.display = "inline";
-                delete_row.style.display = "none";
+            if(elem == deleteColumn){
+                deleteColumn.style.display = "inline";
+                deleteRow.style.display = "none";
             }
 
-            if(elem == delete_row){
-                delete_row.style.display = "inline";
-                delete_column.style.display = "none";
+            if(elem == deleteRow){
+                deleteRow.style.display = "inline";
+                deleteColumn.style.display = "none";
             }
         }
-
-    outButton(){
-        let delete_column = document.querySelector("button.wrapper__delete_column");
-        let delete_row = document.querySelector("button.wrapper__delete_row");
-        delete_column.style.display = "none";
-        delete_row.style.display = "none";
-    }
 }
 
 let cube = new Cube("div.wrapper","table.wrapper__table");
