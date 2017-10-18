@@ -120,6 +120,23 @@ class Cube{
        const elem = e.target;
        const offsetLeft = elem.offsetLeft;
        const offsetTop = elem.offsetTop;
+       const layers = [];
+
+       for(let i = 0; i < table.rows[0].cells.length; i++) {
+           layers[i] = i * 54 + 2;
+
+           if (layers[i] === e.layerX || layers[i] - 2 === e.layerX) {
+               return false;
+           }
+       }
+
+       for(let i = 0; i < table.rows.length; i++) {
+           layers[i] = i * 54 + 2;
+
+           if(layers[i] === e.layerY || layers[i] + 1 === e.layerY || layers[i] - 2 === e.layerY){
+               return false;
+           }
+       }
 
        deleteColumn.style.display = "inline";
        deleteRow.style.display = "inline";
